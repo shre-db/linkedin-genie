@@ -1,0 +1,22 @@
+name: linkedin-genie
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - streamlit
+  - pydantic
+  - requests
+  - python-dotenv
+  - numpy
+  - pandas
+  - matplotlib
+  - pytest
+  - pip:
+      - langchain
+      - langchain-community
+      - langgraph
+      - huggingface_hub
+      - openai
+      - streamlit-chat
