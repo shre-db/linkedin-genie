@@ -36,18 +36,24 @@ if analyze_button:
 
             print(f"Final Output: {state}")
 
-            # st.subheader("📊 Profile Analysis Summary")
-            # st.write(state.analysis_result)
+            st.subheader("📊 Profile Analysis Summary")
+            st.markdown(state["profile_analysis"].content)
 
-            # st.subheader("✍️ Rewritten Sections")
-            # st.write(state.rewritten_content)
+            st.subheader("✍️ Rewritten Sections")
 
-            # st.subheader("📌 Job Fit Report")
-            # st.write(state.job_fit_score)
-            # st.write(state.job_fit_feedback)
+            # state['content_rewrites] is a dictionary containing multiple key-value pairs with keys like: 'name', 'about', 'experience', 'skills' etc.
+            # We need an st.markdown section for each key found in state['content_rewrites] dictionary
+            for section, rewrite in state["content_rewrites"].items():
+                st.markdown(f"**{section.capitalize()}**")
+                st.markdown(rewrite.content)
 
-            # st.subheader("🎓 Career Guidance")
-            # st.write(state.career_recommendation)
+
+            st.subheader("📌 Job Fit Report")
+            st.markdown(state["job_fit_report"].content)
+            # st.markdown(state.job_fit_feedback)
+
+            st.subheader("🎓 Career Guidance")
+            st.markdown(state["career_guidance"].content)
 
 # Footer
 show_footer()
