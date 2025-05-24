@@ -1,20 +1,22 @@
 __module_name__ = "llm"
 
-from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
-from langchain_community.chat_models.huggingface import ChatHuggingFace
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-MODEL_NAME = os.getenv("MODEL_NAME", "mistralai/Mixtral-8x7B-Instruct-v0.1")
-HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
-def get_chat_model(temperature: float = 0.1):
-    llm = HuggingFaceEndpoint(
-        repo_id=MODEL_NAME,
+def get_chat_model(temperature: float = 0.7):
+    if not GOOGLE_API_KEY:
+        raise ValueError("GOOGLE_API_KEY not found. Check your .env file.")
+
+    llm = ChatGoogleGenerativeAI(
+        model="gemma-3-27b-it",
+        google_api_key=GOOGLE_API_KEY,
         temperature=temperature,
-        huggingfacehub_api_token=HF_API_TOKEN,
-        stop_sequences=["\nObservation:", "Observation:", "</s>"]
+        top_p=0.9,
+        # max_output_tokens=1024,
     )
-    return ChatHuggingFace(llm=llm)
+    return llm
